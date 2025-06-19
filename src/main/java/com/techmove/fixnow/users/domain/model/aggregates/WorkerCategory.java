@@ -1,7 +1,7 @@
 package com.techmove.fixnow.users.domain.model.aggregates;
 
 import com.techmove.fixnow.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.techmove.fixnow.users.domain.model.commands.workercategory.CreateWorkerCategoryCommand;
+import com.techmove.fixnow.users.domain.model.commands.CreateWorkerCategoryCommand;
 import jakarta.persistence.*;
 import lombok.Getter;
 

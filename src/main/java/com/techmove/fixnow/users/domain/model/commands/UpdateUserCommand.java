@@ -1,17 +1,16 @@
-package com.techmove.fixnow.users.domain.model.commands.baseuser;
+package com.techmove.fixnow.users.domain.model.commands;
 
 import com.techmove.fixnow.users.domain.model.valueobjects.AccountId;
 
 
-public record CreateUserCommand(
+public record UpdateUserCommand(
         AccountId accountId,
         String firstName,
         String lastName,
-        String description,
-        String role
+        String description
 ) {
 
-    public CreateUserCommand {
+    public UpdateUserCommand {
         if (accountId == null) {
             throw new IllegalArgumentException("Account ID cannot be null");
         }
@@ -20,9 +19,6 @@ public record CreateUserCommand(
         }
         if (lastName == null || lastName.isBlank()) {
             throw new IllegalArgumentException("Last name cannot be null or blank");
-        }
-        if (role == null || (!role.equals("CUSTOMER") && !role.equals("WORKER"))) {
-            throw new IllegalArgumentException("Role must be either CUSTOMER or WORKER");
         }
     }
 }

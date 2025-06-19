@@ -1,4 +1,4 @@
-package com.techmove.fixnow.users.domain.model.commands.worker;
+package com.techmove.fixnow.users.domain.model.commands;
 
 import com.techmove.fixnow.users.domain.model.valueobjects.Money;
 

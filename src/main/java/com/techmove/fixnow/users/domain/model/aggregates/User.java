@@ -1,7 +1,7 @@
 package com.techmove.fixnow.users.domain.model.aggregates;
 
 import com.techmove.fixnow.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
-import com.techmove.fixnow.users.domain.model.commands.baseuser.CreateUserCommand;
+import com.techmove.fixnow.users.domain.model.commands.CreateUserCommand;
 import com.techmove.fixnow.users.domain.model.valueobjects.AccountId;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,6 @@
 package com.techmove.fixnow.users.interfaces.rest.resources;
 
 public record CreateUserResource(
-        String id,
         String accountId,
         String firstName,
         String lastName,

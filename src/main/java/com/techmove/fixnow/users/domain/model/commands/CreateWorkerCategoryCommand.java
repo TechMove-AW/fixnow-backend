@@ -1,4 +1,4 @@
-package com.techmove.fixnow.users.domain.model.commands.workercategory;
+package com.techmove.fixnow.users.domain.model.commands;
 
 public record CreateWorkerCategoryCommand(
         String displayName,

@@ -2,7 +2,6 @@ package com.techmove.fixnow.users.domain.model.entities;
 
 import com.techmove.fixnow.shared.domain.model.entities.AuditableModel;
 import com.techmove.fixnow.users.domain.model.aggregates.User;
-import com.techmove.fixnow.users.domain.model.commands.worker.CreateWorkerCommand;
 import com.techmove.fixnow.users.domain.model.valueobjects.WorkerService;
 import com.techmove.fixnow.users.domain.model.valueobjects.Money;
 import jakarta.persistence.*;
