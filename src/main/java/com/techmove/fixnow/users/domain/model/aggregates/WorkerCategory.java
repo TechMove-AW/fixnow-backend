@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-public class WorkerCategory extends AuditableAbstractAggregateRoot<User> {
+public class WorkerCategory extends AuditableAbstractAggregateRoot<WorkerCategory> {
     @Column(nullable = false)
     private String displayName;
 
@@ -20,11 +20,23 @@ public class WorkerCategory extends AuditableAbstractAggregateRoot<User> {
     public WorkerCategory(CreateWorkerCategoryCommand command) {
         this();
         this.displayName = command.displayName();
-        this.slug = command.slug();
+        this.slug = slugify(command.displayName());
     }
 
-    public void updateWorkerCategory(String displayName, String slug) {
+    public void updateWorkerCategory(String displayName) {
         this.displayName = displayName;
-        this.slug = slug;
+        this.slug = slugify(displayName);
+    }
+
+    private String slugify(String slug) {
+        if (slug == null) return "";
+        String normalized = java.text.Normalizer.normalize(slug, java.text.Normalizer.Form.NFD);
+
+        return normalized
+                .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                .replaceAll("[^a-zA-Z0-9\\s]", "")
+                .trim()
+                .replaceAll("\\s+", "-")
+                .toLowerCase();
     }
 }
