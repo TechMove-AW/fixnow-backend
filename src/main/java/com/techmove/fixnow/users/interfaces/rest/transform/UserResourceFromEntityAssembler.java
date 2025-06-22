@@ -9,12 +9,11 @@ public class UserResourceFromEntityAssembler {
 
     public static UserResource toResourceFromEntity(User entity) {
         return new UserResource(
-                entity.getId(),
-                entity.getAccountId().toString(),
+                entity.getId().toString(),
+                entity.getAccountId(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDescription(),
-                entity.getRole()
+                entity.getDescription()
         );
     }
 }

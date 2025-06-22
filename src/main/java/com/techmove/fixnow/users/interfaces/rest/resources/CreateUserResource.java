@@ -1,11 +1,12 @@
 package com.techmove.fixnow.users.interfaces.rest.resources;
 
+import java.util.UUID;
+
 public record CreateUserResource(
-        String accountId,
+        UUID accountId,
         String firstName,
         String lastName,
-        String description,
-        String role
+        String description
     ) {
     /**
      * Validates the resource.

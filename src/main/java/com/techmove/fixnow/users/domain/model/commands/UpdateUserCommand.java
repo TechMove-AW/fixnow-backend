@@ -1,18 +1,15 @@
 package com.techmove.fixnow.users.domain.model.commands;
 
-import com.techmove.fixnow.users.domain.model.valueobjects.AccountId;
-
-
 public record UpdateUserCommand(
-        AccountId accountId,
+        String accountId,
         String firstName,
         String lastName,
         String description
 ) {
 
     public UpdateUserCommand {
-        if (accountId == null) {
-            throw new IllegalArgumentException("Account ID cannot be null");
+        if (accountId == null || accountId.isBlank()) {
+            throw new IllegalArgumentException("Account ID cannot be null or blank");
         }
         if (firstName == null || firstName.isBlank()) {
             throw new IllegalArgumentException("First name cannot be null or blank");

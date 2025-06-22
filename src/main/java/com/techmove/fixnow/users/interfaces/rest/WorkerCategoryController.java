@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/categories", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,8 +82,8 @@ public class WorkerCategoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Worker category found"),
             @ApiResponse(responseCode = "404", description = "Worker category not found")})
-    public ResponseEntity<WorkerCategoryResource> getWorkerCategoryById(@PathVariable String id) {
-        var workerCategory = workerCategoryQueryService.handle(new GetWorkerCategoryByIdQuery(id));
+    public ResponseEntity<WorkerCategoryResource> getWorkerCategoryById(@PathVariable UUID id) {
+        var workerCategory = workerCategoryQueryService.handle(new GetWorkerCategoryByIdQuery(id.toString()));
         if (workerCategory.isEmpty()) return ResponseEntity.notFound().build();
         var workerCategoryResource = WorkerCategoryFromEntityAssembler.toResourceFromEntity(workerCategory.get());
         return ResponseEntity.ok(workerCategoryResource);

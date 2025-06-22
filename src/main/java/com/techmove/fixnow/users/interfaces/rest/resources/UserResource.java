@@ -5,7 +5,6 @@ public record UserResource(
         String accountId,
         String firstName,
         String lastName,
-        String description,
-        String role
+        String description
         ) {
 }

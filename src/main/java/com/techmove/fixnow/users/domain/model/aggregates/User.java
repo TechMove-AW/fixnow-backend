@@ -2,7 +2,6 @@ package com.techmove.fixnow.users.domain.model.aggregates;
 
 import com.techmove.fixnow.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import com.techmove.fixnow.users.domain.model.commands.CreateUserCommand;
-import com.techmove.fixnow.users.domain.model.valueobjects.AccountId;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -10,8 +9,8 @@ import lombok.Getter;
 @Getter
 @Entity
 public class User extends AuditableAbstractAggregateRoot<User> {
-    @Embedded
-    private AccountId accountId;
+    @Column(nullable = false, unique = true)
+    private String accountId;
 
     @Column(nullable = false)
     private String firstName;
@@ -22,9 +21,6 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
-    private String role; // "CUSTOMER" or "WORKER"
-
     protected User() {
     }
 
@@ -34,7 +30,6 @@ public class User extends AuditableAbstractAggregateRoot<User> {
         this.firstName = command.firstName();
         this.lastName = command.lastName();
         this.description = command.description();
-        this.role = command.role();
     }
 
     public void updateUserInfo(String firstName, String lastName, String description) {

@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/api/v1/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Users", description = "Available Users Endpoints")
@@ -51,8 +53,8 @@ public class UsersController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User found"),
             @ApiResponse(responseCode = "404", description = "Users not found")})
-    public ResponseEntity<UserResource> getUser(@PathVariable String userId) {
-        var user = userQueryService.handle(new GetUserByIdQuery(userId));
+    public ResponseEntity<UserResource> getUser(@PathVariable UUID userId) {
+        var user = userQueryService.handle(new GetUserByIdQuery(userId.toString()));
         if (user.isEmpty()) return ResponseEntity.notFound().build();
         var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
         return ResponseEntity.ok(userResource);

@@ -1,28 +1,21 @@
 package com.techmove.fixnow.users.domain.model.commands;
 
-import com.techmove.fixnow.users.domain.model.valueobjects.AccountId;
-
-
 public record CreateUserCommand(
-        AccountId accountId,
+        String accountId,
         String firstName,
         String lastName,
-        String description,
-        String role
+        String description
 ) {
 
     public CreateUserCommand {
-        if (accountId == null) {
-            throw new IllegalArgumentException("Account ID cannot be null");
+        if (accountId == null || accountId.isBlank()) {
+            throw new IllegalArgumentException("Account ID cannot be null or blank");
         }
         if (firstName == null || firstName.isBlank()) {
             throw new IllegalArgumentException("First name cannot be null or blank");
         }
         if (lastName == null || lastName.isBlank()) {
             throw new IllegalArgumentException("Last name cannot be null or blank");
-        }
-        if (role == null || (!role.equals("CUSTOMER") && !role.equals("WORKER"))) {
-            throw new IllegalArgumentException("Role must be either CUSTOMER or WORKER");
         }
     }
 }
