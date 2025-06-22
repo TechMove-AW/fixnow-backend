@@ -8,6 +8,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Base class for all aggregate roots that require auditing.
@@ -21,14 +22,23 @@ import java.util.Date;
 public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> extends AbstractAggregateRoot<T> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createdAt;
+
     @LastModifiedDate
     @Column(nullable = false)
     private Date updatedAt;
+
+    /**
+     * Default constructor that generates a new UUID for the id.
+     */
+    protected AuditableAbstractAggregateRoot() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     /**
      * Registers a domain event.
@@ -38,5 +48,4 @@ public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> 
     public void addDomainEvent(Object event) {
         super.registerEvent(event);
     }
-
 }
