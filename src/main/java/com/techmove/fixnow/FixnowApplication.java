@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
    servers = {
-     @Server(url = "/api/", description = "Default Server URL")
+     @Server(url = "http://localhost:8383", description = "LOCAL"),
+     @Server(url = "https://fixnow-backend-production.up.railway.app", description = "RAILWAY")
    }
 )
 @SpringBootApplication
