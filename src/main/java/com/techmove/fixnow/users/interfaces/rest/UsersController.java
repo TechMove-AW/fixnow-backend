@@ -53,8 +53,8 @@ public class UsersController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User found"),
             @ApiResponse(responseCode = "404", description = "Users not found")})
-    public ResponseEntity<UserResource> getUser(@PathVariable UUID userId) {
-        var user = userQueryService.handle(new GetUserByIdQuery(userId.toString()));
+    public ResponseEntity<UserResource> getUser(@PathVariable Long userId) {
+        var user = userQueryService.handle(new GetUserByIdQuery(userId));
         if (user.isEmpty()) return ResponseEntity.notFound().build();
         var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
         return ResponseEntity.ok(userResource);

@@ -3,9 +3,9 @@ package com.techmove.fixnow.users.interfaces.rest.resources;
 import java.util.List;
 
 public record WorkerResource(
-        String workerId,
-        String userId,
-        String workerCategoryId,
+        Long workerId,
+        Long userId,
+        Long workerCategoryId,
         String availability,
         Float hourlyRateAmount,
         Integer projectsCompleted,

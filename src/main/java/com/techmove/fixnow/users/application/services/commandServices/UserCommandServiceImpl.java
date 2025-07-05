@@ -19,11 +19,11 @@ public class UserCommandServiceImpl implements UserCommandService
 
     @Override
     public Optional<User> handle(CreateUserCommand command) {
-        var user = userRepository.findByAccountId(command.accountId());
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("User with ID " + command.accountId() + " does not exist");
+        var userWithAccountIdExists = userRepository.findByAccountId(command.accountId());
+        if (userWithAccountIdExists.isPresent()) {
+            throw new IllegalArgumentException("User with accountId " + command.accountId() + " exists!");
         }
-        this.userRepository.save(user.get());
-        return user;
+        this.userRepository.save(new User(command));
+        return userWithAccountIdExists;
     }
 }

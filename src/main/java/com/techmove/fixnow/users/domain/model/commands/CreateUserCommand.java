@@ -1,14 +1,14 @@
 package com.techmove.fixnow.users.domain.model.commands;
 
 public record CreateUserCommand(
-        String accountId,
+        Long accountId,
         String firstName,
         String lastName,
         String description
 ) {
 
     public CreateUserCommand {
-        if (accountId == null || accountId.isBlank()) {
+        if (accountId == null) {
             throw new IllegalArgumentException("Account ID cannot be null or blank");
         }
         if (firstName == null || firstName.isBlank()) {

@@ -1,15 +1,12 @@
-package com.techmove.fixnow.review.reviews.domain;
+package com.techmove.fixnow.review.domain.model.aggregates;
 
+import com.techmove.fixnow.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Review extends AuditableModel {
 
     private Long workerId;
     private Long userId;
@@ -19,11 +16,6 @@ public class Review {
     private String comment;
 
     private LocalDateTime date;
-
-    // Getters and Setters
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public Long getWorkerId() { return workerId; }
     public void setWorkerId(Long workerId) { this.workerId = workerId; }

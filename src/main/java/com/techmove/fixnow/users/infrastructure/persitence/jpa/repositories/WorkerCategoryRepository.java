@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface WorkerCategoryRepository extends JpaRepository<WorkerCategory, String> {
+public interface WorkerCategoryRepository extends JpaRepository<WorkerCategory, Long> {
     Optional<WorkerCategory> findBySlug(String slug);
     boolean existsBySlug(String slug);
 }

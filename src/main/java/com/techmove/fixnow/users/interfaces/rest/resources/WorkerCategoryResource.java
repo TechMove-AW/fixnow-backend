@@ -1,7 +1,7 @@
 package com.techmove.fixnow.users.interfaces.rest.resources;
 
 public record WorkerCategoryResource(
-        String id,
+        Long id,
         String displayName,
         String slug
 ) {

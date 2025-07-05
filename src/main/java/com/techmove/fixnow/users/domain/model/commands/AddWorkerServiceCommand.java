@@ -2,12 +2,7 @@ package com.techmove.fixnow.users.domain.model.commands;
 
 import com.techmove.fixnow.users.domain.model.valueobjects.WorkerService;
 
-import java.util.UUID;
-
-public record AddWorkerServiceCommand(
-        UUID workerId,
-        WorkerService service
-) {
+public record AddWorkerServiceCommand(Long workerId, WorkerService service) {
     public AddWorkerServiceCommand {
         if (workerId == null) {
             throw new IllegalArgumentException("Worker ID cannot be null");

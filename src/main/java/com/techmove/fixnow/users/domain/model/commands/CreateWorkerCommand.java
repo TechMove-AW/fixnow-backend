@@ -6,16 +6,16 @@ import com.techmove.fixnow.users.domain.model.valueobjects.Money;
  * Command to create a new worker
  */
 public record CreateWorkerCommand(
-        String userId,
-        String workerCategoryId,
+        Long userId,
+        Long workerCategoryId,
         String availability,
         Money hourlyRate
 ) {
     public CreateWorkerCommand {
-        if (userId == null || userId.trim().isEmpty()) {
+        if (userId == null ) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
-        if (workerCategoryId == null || workerCategoryId.trim().isEmpty()) {
+        if (workerCategoryId == null) {
             throw new IllegalArgumentException("Worker category ID cannot be null or empty");
         }
         if (availability == null || availability.trim().isEmpty()) {

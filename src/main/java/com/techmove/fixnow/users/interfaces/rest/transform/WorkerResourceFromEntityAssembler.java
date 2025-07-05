@@ -18,8 +18,8 @@ public class WorkerResourceFromEntityAssembler {
                 .collect(Collectors.toList());
 
         return new WorkerResource(
-                entity.getWorkerId().toString(),
-                entity.getUser().getAccountId(),
+                entity.getId(),
+                entity.getUser().getId(),
                 entity.getWorkerCategoryId(),
                 entity.getAvailability(),
                 entity.getHourlyRate().amount(),

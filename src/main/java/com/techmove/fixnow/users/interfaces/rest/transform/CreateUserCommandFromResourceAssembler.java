@@ -7,7 +7,7 @@ public class CreateUserCommandFromResourceAssembler {
 
     public static CreateUserCommand toCommandFromResource(CreateUserResource resource) {
         return new CreateUserCommand(
-                resource.accountId().toString(),
+                resource.accountId(),
                 resource.firstName(),
                 resource.lastName(),
                 resource.description()

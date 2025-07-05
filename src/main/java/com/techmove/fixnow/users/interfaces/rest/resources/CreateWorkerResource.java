@@ -3,8 +3,8 @@ package com.techmove.fixnow.users.interfaces.rest.resources;
 import java.util.UUID;
 
 public record CreateWorkerResource(
-        UUID userId,
-        String workerCategoryId,
+        Long userId,
+        Long workerCategoryId,
         String availability,
         Float hourlyRateAmount
 ) {
@@ -17,7 +17,7 @@ public record CreateWorkerResource(
         if (userId == null) {
             throw new IllegalArgumentException("User ID is required");
         }
-        if (workerCategoryId == null || workerCategoryId.isBlank()) {
+        if (workerCategoryId == null) {
             throw new IllegalArgumentException("Worker category ID is required");
         }
         if (availability == null || availability.isBlank()) {

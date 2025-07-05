@@ -8,6 +8,7 @@ import com.techmove.fixnow.users.domain.services.WorkerCommandService;
 import com.techmove.fixnow.users.infrastructure.persitence.jpa.repositories.UserRepository;
 import com.techmove.fixnow.users.infrastructure.persitence.jpa.repositories.WorkerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class WorkerCommandServiceImpl implements WorkerCommandService {
     }
 
     @Override
+    @Transactional
     public Optional<Worker> handle(CreateWorkerCommand command) {
         var user = userRepository.findByAccountId(command.userId());
         if (user.isEmpty()) {
@@ -41,12 +43,18 @@ public class WorkerCommandServiceImpl implements WorkerCommandService {
         );
         
         workerRepository.save(worker);
+        
+        // Establecer la relación bidireccional
+        user.get().setWorkerId(worker.getId());
+        userRepository.save(user.get());
+        
         return Optional.of(worker);
     }
 
     @Override
+    @Transactional
     public Optional<Worker> handle(AddWorkerServiceCommand command) {
-        var worker = workerRepository.findByWorkerId(command.workerId());
+        var worker = workerRepository.findById(command.workerId());
         if (worker.isEmpty()) {
             return Optional.empty();
         }
@@ -58,8 +66,9 @@ public class WorkerCommandServiceImpl implements WorkerCommandService {
     }
 
     @Override
+    @Transactional
     public Optional<Worker> handle(RemoveWorkerServiceCommand command) {
-        var worker = workerRepository.findByWorkerId(command.workerId());
+        var worker = workerRepository.findById(command.workerId());
         if (worker.isEmpty()) {
             return Optional.empty();
         }

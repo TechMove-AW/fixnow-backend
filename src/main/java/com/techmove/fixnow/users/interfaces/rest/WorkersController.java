@@ -1,6 +1,7 @@
 package com.techmove.fixnow.users.interfaces.rest;
 
 import com.techmove.fixnow.users.domain.model.queries.GetWorkerByIdQuery;
+import com.techmove.fixnow.users.domain.model.queries.GetWorkersByCategoryIdQuery;
 import com.techmove.fixnow.users.domain.services.WorkerCommandService;
 import com.techmove.fixnow.users.domain.services.WorkerQueryService;
 import com.techmove.fixnow.users.interfaces.rest.resources.AddWorkerServiceResource;
@@ -20,7 +21,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
 
 @RestController
 @RequestMapping(value = "/api/v1/workers", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,21 +67,35 @@ public class WorkersController {
     }
 
     @GetMapping("/{workerId}")
-    @Operation(summary = "Get worker by id")
+    @Operation(summary = "Get worker by worker id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Worker found"),
             @ApiResponse(responseCode = "404", description = "Worker not found")})
-    public ResponseEntity<WorkerResource> getWorker(@PathVariable UUID workerId) {
+    public ResponseEntity<WorkerResource> getWorker(@PathVariable Long workerId) {
         var worker = workerQueryService.handle(new GetWorkerByIdQuery(workerId));
         if (worker.isEmpty()) return ResponseEntity.notFound().build();
         var workerResource = WorkerResourceFromEntityAssembler.toResourceFromEntity(worker.get());
         return ResponseEntity.ok(workerResource);
     }
 
+    @GetMapping
+    @Operation(summary = "Get workers by category id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Workers found"),
+            @ApiResponse(responseCode = "404", description = "No workers found for category")})
+    public ResponseEntity<List<WorkerResource>> getWorkersByCategory(@RequestParam Long categoryId) {
+        var workers = workerQueryService.handle(new GetWorkersByCategoryIdQuery(categoryId));
+        if (workers.isEmpty()) return ResponseEntity.notFound().build();
+        var workerResources = workers.stream()
+                .map(WorkerResourceFromEntityAssembler::toResourceFromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(workerResources);
+    }
+
     @PostMapping("/{workerId}/services")
     @Operation(summary = "Add service to worker", description = "Add a new service to an existing worker")
     public ResponseEntity<WorkerResource> addWorkerService(
-            @PathVariable UUID workerId,
+            @PathVariable Long workerId,
             @Valid @RequestBody AddWorkerServiceResource resource) {
         var addServiceCommand = AddWorkerServiceCommandFromResourceAssembler.toCommandFromResource(workerId, resource);
         var worker = workerCommandService.handle(addServiceCommand);
@@ -91,7 +109,7 @@ public class WorkersController {
     @DeleteMapping("/{workerId}/services")
     @Operation(summary = "Remove service from worker", description = "Remove a service from an existing worker")
     public ResponseEntity<WorkerResource> removeWorkerService(
-            @PathVariable UUID workerId,
+            @PathVariable Long workerId,
             @Valid @RequestBody AddWorkerServiceResource resource) {
         var removeServiceCommand = RemoveWorkerServiceCommandFromResourceAssembler.toCommandFromResource(workerId, resource);
         var worker = workerCommandService.handle(removeServiceCommand);

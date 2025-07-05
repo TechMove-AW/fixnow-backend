@@ -9,7 +9,6 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Worker entity
@@ -19,21 +18,20 @@ import java.util.UUID;
 @Getter
 @Entity
 public class Worker extends AuditableModel {
-    @Column(unique = true, nullable = false)
-    private UUID workerId;
+
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(nullable = false)
-    private String workerCategoryId;
+    private Long workerCategoryId;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "worker_services")
     private List<WorkerService> workerServices = new ArrayList<>();
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "worker_skills")
     @Column(name = "skill")
     private List<String> skills = new ArrayList<>();
@@ -49,10 +47,9 @@ public class Worker extends AuditableModel {
 
 
     protected Worker() {
-        this.workerId = UUID.randomUUID();
     }
 
-    public Worker(User user, String workerCategoryId, String availability, Money hourlyRate) {
+    public Worker(User user, Long workerCategoryId, String availability, Money hourlyRate) {
         this();
         this.user = user;
         this.workerCategoryId = workerCategoryId;
@@ -80,7 +77,7 @@ public class Worker extends AuditableModel {
         this.skills.remove(skill);
     }
 
-    public void updateWorkerInfo(String workerCategoryId, String availability, Money hourlyRate) {
+    public void updateWorkerInfo(Long workerCategoryId, String availability, Money hourlyRate) {
         this.workerCategoryId = workerCategoryId;
         this.availability = availability;
         this.hourlyRate = hourlyRate;

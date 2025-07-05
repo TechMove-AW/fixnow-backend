@@ -7,7 +7,7 @@ import com.techmove.fixnow.users.interfaces.rest.resources.CreateWorkerResource;
 public class CreateWorkerCommandFromResourceAssembler {
     public static CreateWorkerCommand toCommandFromResource(CreateWorkerResource resource) {
         return new CreateWorkerCommand(
-                resource.userId().toString(),
+                resource.userId(),
                 resource.workerCategoryId(),
                 resource.availability(),
                 new Money(resource.hourlyRateAmount())

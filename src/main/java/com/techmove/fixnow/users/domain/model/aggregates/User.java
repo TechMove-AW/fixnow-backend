@@ -10,7 +10,10 @@ import lombok.Getter;
 @Entity
 public class User extends AuditableAbstractAggregateRoot<User> {
     @Column(nullable = false, unique = true)
-    private String accountId;
+    private Long accountId;
+
+    @Column(nullable = true)
+    private Long workerId;
 
     @Column(nullable = false)
     private String firstName;
@@ -40,5 +43,13 @@ public class User extends AuditableAbstractAggregateRoot<User> {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public void setWorkerId(Long workerId) {
+        this.workerId = workerId;
+    }
+
+    public boolean isWorker() {
+        return workerId != null;
     }
 }

@@ -29,7 +29,7 @@ public class AccountQueryService {
      * @param id the account ID
      * @return the account if found
      */
-    public Optional<Account> findById(String id) {
+    public Optional<Account> findById(Long id) {
         return accountRepository.findById(id);
     }
 }

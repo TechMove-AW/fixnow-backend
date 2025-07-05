@@ -13,7 +13,7 @@ import java.util.Optional;
  * </p>
  */
 @Repository
-public interface AccountRepository extends JpaRepository<Account, String> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
     /**
      * Finds an account by email
      * @param email the email to search for

@@ -1,14 +1,19 @@
-package com.techmove.fixnow.review.reviews.interfaces.rest;
+package com.techmove.fixnow.review.domain.model.commands;
 
-
-import java.time.LocalDateTime;
-
-public class ReviewDTO {
+public class CreateReviewCommand {
     private Long workerId;
     private Long userId;
     private Double rating;
     private String comment;
-    private LocalDateTime date;
+
+    public CreateReviewCommand() {}
+
+    public CreateReviewCommand(Long workerId, Long userId, Double rating, String comment) {
+        this.workerId = workerId;
+        this.userId = userId;
+        this.rating = rating;
+        this.comment = comment;
+    }
 
     public Long getWorkerId() { return workerId; }
     public void setWorkerId(Long workerId) { this.workerId = workerId; }
@@ -21,8 +26,4 @@ public class ReviewDTO {
 
     public String getComment() { return comment; }
     public void setComment(String comment) { this.comment = comment; }
-
-    public LocalDateTime getDate() { return date; }
-    public void setDate(LocalDateTime date) { this.date = date; }
-
 }

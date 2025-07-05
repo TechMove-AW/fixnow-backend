@@ -1,8 +1,9 @@
 package com.techmove.fixnow.users.interfaces.rest.resources;
 
 public record UserResource(
-        String id,
-        String accountId,
+        Long id,
+        Long accountId,
+        Long workerId,
         String firstName,
         String lastName,
         String description

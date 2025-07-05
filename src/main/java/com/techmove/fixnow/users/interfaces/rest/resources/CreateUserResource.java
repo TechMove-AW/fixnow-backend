@@ -1,9 +1,7 @@
 package com.techmove.fixnow.users.interfaces.rest.resources;
 
-import java.util.UUID;
-
 public record CreateUserResource(
-        UUID accountId,
+        Long accountId,
         String firstName,
         String lastName,
         String description
