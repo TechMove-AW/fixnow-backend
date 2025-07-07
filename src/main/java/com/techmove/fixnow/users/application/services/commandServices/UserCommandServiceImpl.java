@@ -23,7 +23,7 @@ public class UserCommandServiceImpl implements UserCommandService
         if (userWithAccountIdExists.isPresent()) {
             throw new IllegalArgumentException("User with accountId " + command.accountId() + " exists!");
         }
-        this.userRepository.save(new User(command));
-        return userWithAccountIdExists;
+        var userCreated = new User(command);
+        return Optional.of(this.userRepository.save(userCreated));
     }
 }
