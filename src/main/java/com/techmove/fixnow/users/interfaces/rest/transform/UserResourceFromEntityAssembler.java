@@ -14,7 +14,8 @@ public class UserResourceFromEntityAssembler {
                 entity.getWorkerId(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDescription()
+                entity.getDescription(),
+                entity.getAvatarUrl()
         );
     }
 }

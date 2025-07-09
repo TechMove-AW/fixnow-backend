@@ -4,7 +4,8 @@ public record CreateUserResource(
         Long accountId,
         String firstName,
         String lastName,
-        String description
+        String description,
+        String avatarUrl
     ) {
     /**
      * Validates the resource.

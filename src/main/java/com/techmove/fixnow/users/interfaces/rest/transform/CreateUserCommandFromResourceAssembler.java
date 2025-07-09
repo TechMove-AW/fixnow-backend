@@ -10,7 +10,8 @@ public class CreateUserCommandFromResourceAssembler {
                 resource.accountId(),
                 resource.firstName(),
                 resource.lastName(),
-                resource.description()
+                resource.description(),
+                resource.avatarUrl()
         );
     }
 }

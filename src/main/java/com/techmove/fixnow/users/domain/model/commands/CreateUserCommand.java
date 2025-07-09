@@ -4,7 +4,8 @@ public record CreateUserCommand(
         Long accountId,
         String firstName,
         String lastName,
-        String description
+        String description,
+        String avatarUrl
 ) {
 
     public CreateUserCommand {

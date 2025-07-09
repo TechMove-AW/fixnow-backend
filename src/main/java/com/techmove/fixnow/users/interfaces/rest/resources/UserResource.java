@@ -6,6 +6,7 @@ public record UserResource(
         Long workerId,
         String firstName,
         String lastName,
-        String description
+        String description,
+        String avatarUrl
         ) {
 }

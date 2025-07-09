@@ -24,6 +24,9 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(nullable = true)
+    private String avatarUrl;
+
     protected User() {
     }
 
@@ -33,12 +36,17 @@ public class User extends AuditableAbstractAggregateRoot<User> {
         this.firstName = command.firstName();
         this.lastName = command.lastName();
         this.description = command.description();
+        this.avatarUrl = command.avatarUrl();
     }
 
     public void updateUserInfo(String firstName, String lastName, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
+    }
+
+    public void updateAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getFullName() {
