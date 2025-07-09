@@ -1,6 +1,7 @@
 package com.techmove.fixnow.users.interfaces.rest;
 
 import com.techmove.fixnow.users.domain.model.queries.GetUserByIdQuery;
+import com.techmove.fixnow.users.domain.model.queries.GetUserByAccountIdQuery;
 import com.techmove.fixnow.users.domain.services.UserCommandService;
 import com.techmove.fixnow.users.domain.services.UserQueryService;
 import com.techmove.fixnow.users.interfaces.rest.resources.CreateUserResource;
@@ -55,6 +56,18 @@ public class UsersController {
             @ApiResponse(responseCode = "404", description = "Users not found")})
     public ResponseEntity<UserResource> getUser(@PathVariable Long userId) {
         var user = userQueryService.handle(new GetUserByIdQuery(userId));
+        if (user.isEmpty()) return ResponseEntity.notFound().build();
+        var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
+        return ResponseEntity.ok(userResource);
+    }
+
+    @GetMapping("/account/{accountId}")
+    @Operation(summary = "Get user by account id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User found"),
+            @ApiResponse(responseCode = "404", description = "User not found")})
+    public ResponseEntity<UserResource> getUserByAccountId(@PathVariable Long accountId) {
+        var user = userQueryService.handle(new GetUserByAccountIdQuery(accountId));
         if (user.isEmpty()) return ResponseEntity.notFound().build();
         var userResource = UserResourceFromEntityAssembler.toResourceFromEntity(user.get());
         return ResponseEntity.ok(userResource);
